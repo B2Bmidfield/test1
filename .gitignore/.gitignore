@@ -1,0 +1,38 @@
+import csv
+f2=open("census.csv")
+data2=list(csv.reader(f2))
+f=open("guns.csv")
+data=list(csv.reader(f))
+headers=data[0]
+data=data[1:]
+sex=[s[5] for s in data]
+race=[r[7] for r in data]
+intent=[i[3] for i in data]
+sex_counts={}
+race_counts={}
+homicide_race_counts={}
+for i,ra in enumerate(race):
+    if intent[i]=="Homicide":
+        if ra in homicide_race_counts:
+            homicide_race_counts[ra]+=1
+        else:
+            homicide_race_counts[ra]=1
+
+for s in sex:
+    if s in sex_counts:
+        sex_counts[s]+=1
+    else:
+        sex_counts[s]=1
+
+for r in race:
+    if r in race_counts:
+        race_counts[r]+=1
+    else:
+        race_counts[r]=1
+mapping={"Asian/Pacific Islander":(15159516+674625),"White":197318956,"Native American/Native Alaskan":3739506,"Black":40250635,"Hispanic":44618105}
+
+race_per_hundredk={}
+for n,rate in homicide_race_counts.items():
+    num=rate / mapping[n] * 100000
+    race_per_hundredk[n]=num
+print(race_per_hundredk)
