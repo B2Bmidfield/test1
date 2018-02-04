@@ -36,3 +36,9 @@ for n,rate in homicide_race_counts.items():
     num=rate / mapping[n] * 100000
     race_per_hundredk[n]=num
 print(race_per_hundredk)
+
+import pandas as pd
+food_info=pd.read_csv('food_info.csv')
+col_names=food_info.columns.tolist()
+print(col_names)
+print(food_info.head(3))
